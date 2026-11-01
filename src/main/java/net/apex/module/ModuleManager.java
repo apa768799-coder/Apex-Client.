@@ -1,14 +1,10 @@
 package net.apex.module;
 
-// Импорт боевых модулей
+// Импорт всех категорий модулей
 import net.apex.module.impl.Combat.*;
-// Импорт модулей движения
 import net.apex.module.impl.Movement.*;
-// Импорт модулей игрока
 import net.apex.module.impl.Player.*;
-// Импорт визуальных модулей
 import net.apex.module.impl.Render.*;
-// Импорт разного
 import net.apex.module.impl.Misc.*;
 
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
@@ -36,6 +32,7 @@ public class ModuleManager {
         modules.add(new TriggerBot());
         modules.add(new AutoTrap());
         modules.add(new Surround());
+        modules.add(new MiddleClickPearl()); // Новый
 
         // --- MOVEMENT ---
         modules.add(new AutoMine());
@@ -44,22 +41,26 @@ public class ModuleManager {
         modules.add(new Spider());
         modules.add(new Scaffold());
         modules.add(new ElytraHelper());
-        modules.add(new AntiVoid()); // Новый
+        modules.add(new AntiVoid()); 
 
         // --- PLAYER ---
         modules.add(new AutoArmor());
         modules.add(new AutoTotem());
         modules.add(new AutoEat());
-        modules.add(new AutoTool()); // Новый
-        modules.add(new FastPlace()); // Новый
+        modules.add(new AutoTool()); 
+        modules.add(new FastPlace()); 
+        modules.add(new ChestStealer()); // Новый
+        modules.add(new AutoRespawn());  // Новый
 
         // --- RENDER ---
         modules.add(new FullBright());
         modules.add(new PlayerESP());
         modules.add(new TargetHUD());
+        modules.add(new Tracers());      // Новый
 
         // --- MISC ---
         modules.add(new Nuker());
+        modules.add(new AutoReconnect()); // Новый
     }
 
     // Вызывается каждый тик (в ApexClient)
