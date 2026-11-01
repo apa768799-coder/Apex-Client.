@@ -20,10 +20,9 @@ public abstract class Module {
     public void onTick() {}
     public void onEnable() {}
     public void onDisable() {}
-    
-    // Новые методы для визуала
     public void onRenderWorld(WorldRenderContext context) {}
     public void onRenderHud(DrawContext context, float tickDelta) {}
+    public void onChat(String message) {} // НОВЫЙ МЕТОД
 
     public String getName() { return name; }
     public Category getCategory() { return category; }
