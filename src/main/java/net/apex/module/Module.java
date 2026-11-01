@@ -1,6 +1,8 @@
 package net.apex.module;
 
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 
 public abstract class Module {
     protected static final MinecraftClient mc = MinecraftClient.getInstance();
@@ -18,6 +20,10 @@ public abstract class Module {
     public void onTick() {}
     public void onEnable() {}
     public void onDisable() {}
+    
+    // Новые методы для визуала
+    public void onRenderWorld(WorldRenderContext context) {}
+    public void onRenderHud(DrawContext context, float tickDelta) {}
 
     public String getName() { return name; }
     public Category getCategory() { return category; }
