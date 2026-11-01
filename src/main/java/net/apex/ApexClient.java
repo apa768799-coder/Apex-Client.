@@ -5,6 +5,8 @@ import net.apex.ui.ClickGui;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
@@ -15,7 +17,6 @@ public class ApexClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        System.out.println("[Apex Client] Инициализация...");
         moduleManager = new ModuleManager();
 
         keyGui = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -28,6 +29,16 @@ public class ApexClient implements ClientModInitializer {
                 }
                 moduleManager.onTick(client);
             }
+        });
+
+        // Рендер в мире (ESP)
+        WorldRenderEvents.END.register(context -> {
+            if (moduleManager != null) moduleManager.onRenderWorld(context);
+        });
+
+        // Рендер на экране (HUD)
+        HudRenderCallback.EVENT.register((drawContext, tickCounter) -> {
+            if (moduleManager != null) moduleManager.onRenderHud(drawContext, tickCounter.getTickDelta(false));
         });
     }
 }
