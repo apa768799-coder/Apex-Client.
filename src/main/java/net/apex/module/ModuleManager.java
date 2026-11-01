@@ -15,7 +15,7 @@ public class ModuleManager {
     public static final List<Module> modules = new ArrayList<>();
 
     public ModuleManager() {
-        // --- COMBAT ---
+        // COMBAT
         modules.add(new KillAura());
         modules.add(new Velocity());
         modules.add(new Criticals());
@@ -24,9 +24,9 @@ public class ModuleManager {
         modules.add(new AutoTrap());
         modules.add(new Surround());
         modules.add(new MiddleClickPearl());
-        modules.add(new AutoBlock()); // Новый
+        modules.add(new AutoBlock());
 
-        // --- MOVEMENT ---
+        // MOVEMENT
         modules.add(new AutoMine());
         modules.add(new Sprint());
         modules.add(new NoFall());
@@ -34,11 +34,11 @@ public class ModuleManager {
         modules.add(new Scaffold());
         modules.add(new ElytraHelper());
         modules.add(new AntiVoid()); 
-        modules.add(new AutoJump());  // Новый
-        modules.add(new KeepSprint());// Новый
-        modules.add(new NoSlow());    // Новый
+        modules.add(new AutoJump());
+        modules.add(new KeepSprint());
+        modules.add(new NoSlow());
 
-        // --- PLAYER ---
+        // PLAYER
         modules.add(new AutoArmor());
         modules.add(new AutoTotem());
         modules.add(new AutoEat());
@@ -47,33 +47,37 @@ public class ModuleManager {
         modules.add(new ChestStealer());
         modules.add(new AutoRespawn());
 
-        // --- RENDER ---
+        // RENDER
         modules.add(new FullBright());
         modules.add(new PlayerESP());
         modules.add(new TargetHUD());
         modules.add(new Tracers());
-        modules.add(new NameTags());  // Новый
+        modules.add(new NameTags());
+        modules.add(new MineHelper()); // Подсветка руд
 
-        // --- MISC ---
+        // MISC
         modules.add(new Nuker());
         modules.add(new AutoReconnect());
+        modules.add(new AutoFarm());        // Авто-ферма
+        modules.add(new AutoCreeperFarm()); // Фарм криперов
+        modules.add(new PotionCombiner());  // Зелья
+        modules.add(new AutoBuy());         // Аукцион
+        modules.add(new ShulkerDetector()); // Детект шалкеров
     }
 
     public void onTick(MinecraftClient client) {
-        for (Module m : modules) {
-            if (m.isEnabled()) m.onTick();
-        }
+        for (Module m : modules) if (m.isEnabled()) m.onTick();
     }
 
     public void onRenderWorld(WorldRenderContext context) {
-        for (Module m : modules) {
-            if (m.isEnabled()) m.onRenderWorld(context);
-        }
+        for (Module m : modules) if (m.isEnabled()) m.onRenderWorld(context);
     }
 
     public void onRenderHud(DrawContext context, float tickDelta) {
-        for (Module m : modules) {
-            if (m.isEnabled()) m.onRenderHud(context, tickDelta);
-        }
+        for (Module m : modules) if (m.isEnabled()) m.onRenderHud(context, tickDelta);
+    }
+
+    public void onChat(String msg) {
+        for (Module m : modules) if (m.isEnabled()) m.onChat(msg);
     }
 }
