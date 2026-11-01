@@ -13,6 +13,11 @@ public abstract class Module {
     private final String name;
     private final Category category;
     private boolean enabled;
+    
+    // ЭТА ПЕРЕМЕННАЯ НУЖНА ДЛЯ МЕНЮ
+    public boolean expanded = false; 
+    
+    // Список настроек (ползунков/чекбоксов)
     public final List<Setting> settings = new ArrayList<>();
 
     public Module(String name, Category category) {
@@ -50,7 +55,7 @@ public abstract class Module {
         COMBAT, MOVEMENT, RENDER, PLAYER, MISC
     }
 
-    // Класс настройки (Слайдер / Чекбокс)
+    // Класс настройки (Слайдер или Чекбокс)
     public static class Setting {
         public String name;
         public float value, min, max;
@@ -58,11 +63,12 @@ public abstract class Module {
         public boolean isSlider;
         public boolean dragging = false;
 
-        // Конструктор для слайдера
+        // Конструктор для слайдера (чисел)
         public Setting(String name, float defaultVal, float min, float max) {
             this.name = name; this.value = defaultVal; this.min = min; this.max = max; this.isSlider = true;
         }
-        // Конструктор для чекбокса
+        
+        // Конструктор для чекбокса (вкл/выкл)
         public Setting(String name, boolean defaultVal) {
             this.name = name; this.boolValue = defaultVal; this.isSlider = false;
         }
