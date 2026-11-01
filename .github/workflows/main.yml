@@ -15,12 +15,18 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      # Устанавливаем Gradle напрямую, чтобы не требовать файл gradlew
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
+      # Этот шаг сам создаст gradlew внутри робота GitHub
+      - name: Generate Gradle Wrapper
+        run: gradle wrapper
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Build with Gradle
-        run: gradle build
+        run: ./gradlew build
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
